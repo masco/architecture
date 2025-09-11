@@ -9,21 +9,21 @@ metadata:
 data:
   # nodes
   node_0:
-    name: e31-h03-000-r640
+    name: f05-h23-000-1029p
     internalapi_ip: 172.17.0.50
     tenant_ip: 172.18.0.50
     external_ip: 172.19.0.50
     storage_ip: 172.20.0.50
     ctlplane_ip: 172.16.0.50
   node_1:
-    name: e31-h05-000-r640
+    name: f05-h25-000-1029p
     internalapi_ip: 172.17.0.51
     tenant_ip: 172.18.0.51
     external_ip: 172.19.0.51
     storage_ip: 172.20.0.51
     ctlplane_ip: 172.16.0.52
   node_2:
-    name: e31-h06-000-r640
+    name: f05-h26-000-1029p
     internalapi_ip: 172.17.0.52
     tenant_ip: 172.18.0.52
     external_ip: 172.19.0.52
@@ -41,10 +41,10 @@ data:
         name: subnet1
         vlan: 17
     mtu: 1500
-    prefix-length: 24
+    prefix-length: 16
     iface: internalapi
     vlan: 17
-    base_iface: ens2f0np0
+    base_iface: ens2f2
     lb_addresses:
       - 172.17.2.10-172.17.2.250
     endpoint_annotations:
@@ -65,19 +65,19 @@ data:
         }
       }
   external:
-    dnsDomain: externalapi.example.com
+    dnsDomain: external.example.com
     subnets:
       - allocationRanges:
-          - end: 172.19.100.254
+          - end: 172.19.254.254
             start: 172.19.5.100
         cidr: 172.19.0.0/16
         name: subnet1
-        vlan: 19
+        gateway: 172.19.0.1
     mtu: 1500
-    prefix-length: 24
+    prefix-length: 16
     iface: external
     vlan: 19
-    base_iface: ens2f1np1
+    base_iface: ens2f3
     lb_addresses:
       - 172.19.2.10-172.19.2.250
     net-attach-def: |
@@ -93,6 +93,7 @@ data:
           "range_end": "172.19.1.250"
         }
       }
+
   storage:
     dnsDomain: storage.example.com
     subnets:
@@ -103,10 +104,10 @@ data:
         name: subnet1
         vlan: 20
     mtu: 1500
-    prefix-length: 24
+    prefix-length: 16
     iface: storage
     vlan: 20
-    base_iface: ens2f1np1
+    base_iface: ens2f3
     lb_addresses:
       - 172.20.2.10-172.20.2.250
     net-attach-def: |
@@ -132,10 +133,10 @@ data:
         name: subnet1
         vlan: 18
     mtu: 1500
-    prefix-length: 24
+    prefix-length: 16
     iface: tenant
     vlan: 18
-    base_iface: ens2f0np0
+    base_iface: ens2f2
     lb_addresses:
       - 172.18.2.10-172.18.2.250
     net-attach-def: |
@@ -151,15 +152,6 @@ data:
           "range_end": "172.18.1.250"
         }
       }
-  datacentre:
-    net-attach-def: |
-      {
-        "cniVersion": "0.3.1",
-        "name": "datacentre",
-        "type": "bridge",
-        "bridge": "ospbr",
-        "ipam": {}
-      }
   ctlplane:
     dnsDomain: ctlplane.example.com
     subnets:
@@ -169,8 +161,8 @@ data:
         cidr: 172.16.0.0/16
         gateway: 172.16.0.1
         name: subnet1
-    prefix-length: 24
-    iface: ens1f1
+    prefix-length: 16
+    iface: ens2f1
     mtu: 9000
     lb_addresses:
       - 172.16.16.10-172.16.16.250
@@ -183,7 +175,7 @@ data:
         "cniVersion": "0.3.1",
         "name": "ctlplane",
         "type": "macvlan",
-        "master": "ens1f1",
+        "master": "ens2f1",
         "ipam": {
           "type": "whereabouts",
           "range": "172.16.0.0/16",
@@ -218,4 +210,4 @@ data:
 
   lbServiceType: LoadBalancer
   storageClass: lvms-vg1
-  bridgeName: ens1f1
+  bridgeName: ens2f1
