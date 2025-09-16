@@ -14,11 +14,11 @@ Change to the perfscale/scalelab directory
 ```
 cd architecture/examples/dt/perfscale/scalelab
 ```
-Edit the [nncp/values.yaml](nncp/values.yaml) and
+Edit the [networking/nncp/values.yaml](networking/nncp/values.yaml) and
 [service-values.yaml](service-values.yaml) files to suit 
 your environment.
 ```
-vi nncp/values.yaml
+vi networking/nncp/values.yaml
 vi service-values.yaml
 ```
 
@@ -26,7 +26,7 @@ vi service-values.yaml
 
 Generate the node network configuration
 ```
-kustomize build nncp > nncp.yaml
+kustomize build networking/nncp > nncp.yaml
 ```
 
 Apply the NNCP CRs
@@ -38,9 +38,20 @@ Wait for NNCPs to be available
 oc wait nncp -l osp/nncm-config-type=standard --for jsonpath='{.status.conditions[0].reason}'=SuccessfullyConfigured --timeout=300s
 ```
 
-## Apply networking and control-plane configuration
+## Apply remaining networking configuration
 
-Generate the control-plane and networking CRs.
+Generate the remaining network configuration
+```
+kustomize build networking > networking.yaml
+```
+Apply the networking CRs
+```
+oc apply -f networking.yaml
+```
+
+## Apply the control-plane configuration
+
+Generate the control-plane CRs.
 ```
 kustomize build > control-plane.yaml
 ```
