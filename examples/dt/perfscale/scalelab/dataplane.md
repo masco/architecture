@@ -48,4 +48,3 @@ oc apply -f dataplane-deployment.yaml
 Wait for dataplane deployment to finish
 ```
 oc wait osdpns openstack-edpm --for condition=Ready --timeout=40m
-```
