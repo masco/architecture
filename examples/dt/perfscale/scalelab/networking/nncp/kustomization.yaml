@@ -52,6 +52,30 @@ patches:
           vlan:
             base-iface: _replaced_
             id: "_replaced_"
+      - op: add
+        path: /spec/desiredState/interfaces/-
+        value:
+          description: Octavia vlan host interface
+          name: octavia
+          state: up
+          type: vlan
+          vlan:
+            base-iface: _replaced_
+            id: _replaced_
+      - op: add
+        path: /spec/desiredState/interfaces/-
+        value:
+          description: Octavia bridge
+          mtu: 1500
+          name: octbr
+          type: linux-bridge
+          state: up
+          bridge:
+            options:
+              stp:
+                enabled: false
+            port:
+              - name: octavia
 
 replacements:
   # External VLAN base interface
