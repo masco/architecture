@@ -1,5 +1,6 @@
 # OpenStack Scalelab Baremetal
 
+
 This is a collection of CR templates that represent a validated Red Hat OpenStack Services on OpenShift deployment that has the following characteristics:
 
 - 3 master/worker combo-node OpenShift cluster on Baremetal
