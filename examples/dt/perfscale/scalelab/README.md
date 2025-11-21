@@ -11,7 +11,7 @@ This is a collection of CR templates that represent a validated Red Hat OpenStac
 - Swift enabled and used as Glance backend (default)
 - Ceph backend support (optional)
   - Cinder Volume using RBD backend
-  - Glance using RBD backend  
+  - Glance using RBD backend
   - Nova using RBD for ephemeral storage
 
 ## Considerations
